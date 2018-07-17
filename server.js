@@ -1,10 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const passport = require('passport');
 
-const users = require('./routes/api/users')
-const profile = require('./routes/api/profile')
-const post = require('./routes/api/post')
+const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
+const post = require('./routes/api/post');
 
 const db = require('./config/keys').mongoURI;
 
@@ -21,8 +22,11 @@ app.use(bodyParser.json());
 
 
 
-app.get("/", (req,res) => res.send("hello"))
+// Passport middleware
+app.use(passport.initialize());
 
+//Passport Config
+require('./config/passport');
 
 app.use('/api/users', users);
 app.use('/api/profile', profile);
